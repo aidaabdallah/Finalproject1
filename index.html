@@ -1,0 +1,135 @@
+﻿<!doctype html>
+<html lang="">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <!-- CSS -->
+    <!--<link href="styles/reset.css" rel="stylesheet" />-->
+    <link href="styles/myStyle.css" rel="stylesheet" />
+
+    <!-- Scripts -->
+    <script src="jScripts/JavaScript.js" type="text/javascript">  </script>
+</head>
+<body>
+<div id="pizzaForm">
+    <h1 class="menuTitle">תפריט</h1>
+
+    <div class="formLayout">
+
+        <!-- ===================== עמודת הבחירות ===================== -->
+        <div class="choicesColumn">
+
+            <!-- גודל הפיצה (רדיו - בחירה אחת) -->
+            <div class="card">
+                <div class="cardHeader">גודל הפיצה <span class="req">*</span></div>
+                <div class="cardBody">
+                    <label><input type="radio" name="size" value="קטנה"   onclick="updateSize()" /> קטנה</label>
+                    <label><input type="radio" name="size" value="בינונית" onclick="updateSize()" /> בינונית</label>
+                    <label><input type="radio" name="size" value="גדולה"  onclick="updateSize()" /> גדולה</label>
+                </div>
+            </div>
+
+            <!-- תוספות (צ'ק-בוקס - בחירה מרובה) -->
+            <div class="card">
+                <div class="cardHeader">תוספות</div>
+                <div class="cardBody">
+                    <label><input type="checkbox" name="topping" value="פטריות"     onclick="updateToppings()" /> פטריות</label>
+                    <label><input type="checkbox" name="topping" value="זיתים"       onclick="updateToppings()" /> זיתים</label>
+                    <label><input type="checkbox" name="topping" value="בצל" onclick="updateToppings()" /> בצל</label>
+                    <label><input type="checkbox" name="topping" value="עגבניות"     onclick="updateToppings()" />עגבניות</label>
+                    <label><input type="checkbox" name="topping" value="פפרוני"       onclick="updateToppings()" />פפרוני</label>
+                    <label><input type="checkbox" name="topping" value="פלפל" onclick="updateToppings()" /> פלפל</label>
+                    <label><input type="checkbox" name="topping" value="אננס" onclick="updateToppings()" />אננס</label>
+                </div>
+            </div>
+
+            <!-- שתייה (רדיו - בחירה אחת) -->
+            <div class="card">
+                <div class="cardHeader">שתייה <span class="req">*</span></div>
+                <div class="cardBody">
+                    <label><input type="checkbox" name="drink" value="קולה" onclick="updateDrink()" /> קולה</label>
+                    <label><input type="checkbox" name="drink" value="מים"  onclick="updateDrink()" /> מים</label>
+                    <label><input type="checkbox" name="drink" value="מיץ"  onclick="updateDrink()" /> מיץ</label>
+                    <label><input type="checkbox" name="drink" value="תה"   onclick="updateDrink()" /> תה</label>
+                    <label><input type="checkbox" name="drink" value="קפה"  onclick="updateDrink()" /> קפה</label>
+                </div>
+            </div>
+
+            <!-- איסוף (רדיו - בחירה אחת) -->
+            <div class="card">
+                <div class="cardHeader">איסוף <span class="req">*</span></div>
+                <div class="cardBody">
+                    <label><input type="radio" name="pickup" value="לקחת" onclick="updatePickup()" /> לקחת</label>
+                    <label><input type="radio" name="pickup" value="לשבת" onclick="updatePickup()" /> לשבת</label>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===================== פרטים נוספים ===================== -->
+        <div class="card">
+            <div class="cardHeader">פרטים נוספים</div>
+            <div class="cardBody">
+                <p>שם מלא: <input type="text" id="customerName" onkeyup="checkForm()" /></p>
+                <p>הערות להזמנה:</p>
+                <textarea id="notes" rows="4"></textarea>
+                <br />
+                <input type="button" id="submitBtn" value="שלח הזמנה" onclick="sendOrder()" disabled />
+            </div>
+        </div>
+
+        <!-- ===================== המנה שלי ===================== -->
+        <div class="card dishCard">
+            <div class="cardHeader">המנה שלי</div>
+
+            <div class="cardBody">
+
+                <!-- שורה 1: גדלים -->
+                <div class="imgRow">
+                    <img id="imgSmall"   class="sizeImg" src="images/small.png"  alt="פיצה קטנה" />
+                    <img id="imgMedium" class="sizeImg" src="images/medium.png" alt="פיצה בינונית" />
+                    <img id="imgLarge"  class="sizeImg" src="images/large.png"  alt="פיצה גדולה" />
+                </div>
+
+                <!-- שורה 2: שתייה -->
+                <div class="imgRow">
+                    <img id="imgCola"   class="drinkImg" src="images/cola.png"   alt="קולה" />
+                    <img id="imgWater"  class="drinkImg" src="images/witer.png"  alt="מים" />
+                    <img id="imgJuice"  class="drinkImg" src="images/juice.png"  alt="מיץ" />
+                    <img id="imgTea"    class="drinkImg" src="images/tea.png"    alt="תה" />
+                    <img id="imgCoffee" class="drinkImg" src="images/coffee%20(2).png" alt="קפה" />
+                </div>
+                <!-- שורה 3: איסוף -->
+                <div class="imgRow">
+                    <img id="imgTakeaway" class="pickupImg" src="images/takeAway.png" alt="לקחת" />
+                    <img id="imgSit"      class="pickupImg" src="images/sit.png"      alt="לשבת" />
+                </div>
+            </div>
+            <!-- הריבוע התחתון: תמונת הפיצה + התוספות עליה -->
+            <div id="dishSummary" class="dishSummary">
+                <!-- תמונת הפיצה הנבחרת -->
+                <img id="finalPizza" class="finalPizza" src="" alt="פיצה" />
+                <!-- שכבת התוספות שמונחת על הפיצה -->
+                <div id="toppingsLayer" class="toppingsLayer"></div>
+            </div>
+        </div>
+           
+    </div>
+
+    <!-- אזור הודעת האישור הסופית -->
+    <p id="result"></p>
+</div>
+<!-- חלון סיכום ההזמנה (מוסתר עד הלחיצה) -->
+<div id="orderModal" class="modal">
+    <div class="modalBox">
+        <div class="modalHeader">סיכום הזמנה</div>
+        <div id="orderSummary" class="modalBody"></div>
+        <button class="closeBtn" onclick="closeModal()">סגור</button>
+    </div>
+</div>
+</body>
+</html>
